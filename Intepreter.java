@@ -9,18 +9,19 @@ public class Intepreter {
 
 	private Symbol lastValidInput;// stores last valid Symbol
 
-	private int addSubPrecedence=1; // stores precedence of + and -
+	final static int addSubPrecedence=1; // stores precedence of + and -
 
-	private int mulDivPrecedence=2; //stores precedence of * and /
+	final static int mulDivPrecedence=2; //stores precedence of * and /
 
-	private int negatePrecedence=3; // stores precedence of negation op
+	final static int negatePrecedence=3; // stores precedence of negation op
 
-	private int numberPrecedence=4; // stores precedence of number
+	final static int numberPrecedence=4; // stores precedence of number
 
-	private int parentPrecedence=5; // stores precedence of parent number
+	final static int parentPrecedence=5; // stores precedence of parent number
 
 	//to create expression tree instances
 	private ExpressionTreeFactory	expressionTreeFactory = new ExpressionTreeFactory();
+	private SymbolTable symbolTable = new SymbolTable();
 
 	public ExpressionTree interpret(String exp){
 		Stack<Symbol> parseTree = buildParseTree(exp);
@@ -84,13 +85,12 @@ public class Intepreter {
 					op.addPrecedence(accumalatedPrecedence);
 					lastValidInput = null;
 					parseTree= insertSymbolByPrecedence(op,parseTree);
-				}else if(exp.charAt(i)==' '||exp.charAt(i)=='/n' ){
+				}else if(exp.charAt(i)==' '||exp.charAt(i)=='n' ){
 					handle=true;
 				}
 				return parseTree;
 			}
-	}
-
+	
 	private Stack<Symbol> insertSymbolDigit(String exp, Stack<Symbol> parseTree, int i, boolean isVariable){
 		int end=1;
 		for(;i+end<exp.length() && Character.isDigit(exp.charAt(i+end)); end++){
@@ -98,7 +98,7 @@ public class Intepreter {
 		}
 		Number number=null;
 		if(isVariable){
-			number=symbolTable.lookUp(exp.substring(i,i+end);
+			number=new Number(symbolTable.get(exp.substring(i,i+end)));
 		}else{
 			number=new Number(exp.substring(i,i+end));
 		}
@@ -140,5 +140,122 @@ public class Intepreter {
         	}	
         	return parseTree;
 		}
+
+		public class Negate extends UnaryOperator{
+
+		 	public Negate(){
+				super(null,negatePrecedence);
+			}
+
+			public int addPrecedence(int accumaltedPrecedence){
+				return precedence=precedence+accumaltedPrecedence;
+			}
+				
+			public Node build(){
+				return new NegateNode(right.build());
+			}
+
+			public int precedence(){
+				return precedence;
+			}
+
+		}
+
+		class Add extends Operator {
+	         
+	        public Add() {
+	            super(null, null, addSubPrecedence);
+	        }
+
+	        
+	        public int addPrecedence(int accumulatedPrecedence) {
+	            return precedence =
+	                addSubPrecedence + accumulatedPrecedence;
+	        }
+
+	       
+	        public Node build() {
+	            return new AddNode(left.build(),
+	                                        right.build());
+	        }
+
+	      
+	        public int precedence() {
+	            return precedence;
+	        }
+    	}
+
+    	class Subtract extends Operator {
+	         
+	        public Subtract() {
+	            super(null, null, addSubPrecedence);
+	        }
+
+	        
+	        public int addPrecedence(int accumulatedPrecedence) {
+	            return precedence =
+	                addSubPrecedence + accumulatedPrecedence;
+	        }
+
+	       
+	        public Node build() {
+	            return new SubtractNode(left.build(),
+	                                             right.build());
+	        }
+
+	      
+	        public int precedence() {
+	            return precedence;
+	        }
+	    }
+
+	    class Multiply extends Operator {
+         
+        public Multiply() {
+            super(null, null, mulDivPrecedence);
+        }
+
+   
+        public int addPrecedence(int accumulatedPrecedence) {
+            return precedence =
+                mulDivPrecedence + accumulatedPrecedence;
+        }
+
+  
+        public Node build() {
+            return new MultiplyNode(left.build(),
+                                             right.build());
+        }
+
+ 
+        public int precedence() {
+            return precedence;
+        }
+    }
+
+
+    class Divide extends Operator {
+         
+        public Divide() {
+            super(null, null, mulDivPrecedence);
+        }
+
+        
+        public int precedence() {
+            return precedence;
+        }
+
+       
+        public int addPrecedence(int accumulatedPrecedence) {
+            return precedence = 
+                mulDivPrecedence + accumulatedPrecedence;
+        }
+
+      
+        public Node build() {
+            return new DivideNode(left.build(),
+                                           right.build());
+        }
+    }
 
 }
