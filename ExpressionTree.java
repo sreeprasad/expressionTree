@@ -29,4 +29,8 @@ public class ExpressionTree {
 		root.accept(visitor);
 	}
 
+	public int item(){
+		return root.item();
+	}
+
 }
