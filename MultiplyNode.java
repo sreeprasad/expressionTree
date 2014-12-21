@@ -1,14 +1,17 @@
-public class SubtractNode extends BinaryNode{
+public class MultiplyNode extends BinaryNode {
 
-	public SubtractNode(Node left, Node right){
+	public MultiplyNode(Node left, Node right){
 		super(left,right);
 	}
 
 	public int item(){
-		return '-';
+		return '*';
 	}
 
 	public void accept(Visitor visitor){
 		visitor.visit(this);
 	}
+
+
+
 }

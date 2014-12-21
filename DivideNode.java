@@ -1,11 +1,11 @@
-public class SubtractNode extends BinaryNode{
+public class DivideNode extends BinaryNode {
 
-	public SubtractNode(Node left, Node right){
+	public DivideNode(Node left, Node right){
 		super(left,right);
 	}
 
 	public int item(){
-		return '-';
+		return '/';
 	}
 
 	public void accept(Visitor visitor){
