@@ -12,7 +12,7 @@ public abstract class Symbol{
 	public int precedence(){
 		return precedence;
 	}
-	public abstract addPrecedence(int precedence);
+	public abstract int addPrecedence(int precedence);
 
 	public abstract Node build();
 }
