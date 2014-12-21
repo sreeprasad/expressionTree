@@ -1,6 +1,6 @@
 import java.util.HashMap;
 import java.util.Iterator;
-
+import java.util.Map.Entry;
 public class SymbolTable{
 	   private HashMap<String, Integer> map = new HashMap<String, Integer>();
 	   public SymbolTable(){
