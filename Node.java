@@ -1,5 +1,7 @@
 public abstract class Node{
 
-	public abstract int item();
+	public  int item(){
+		throw new UnsupportedOperationException("no item here");
+	}
 
 }	
