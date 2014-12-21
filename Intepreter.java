@@ -258,4 +258,11 @@ public class Intepreter {
         }
     }
 
+    protected void optimizeParseTree(Stack<Symbol> parseTree) {
+    }
+
+    protected ExpressionTree buildExpressionTree(Stack<Symbol> parseTree) {
+         assert (parseTree.size() == 1);
+        return expressionTreeFactory.makeExpressionTree(parseTree.peek().build());
+    }
 }
