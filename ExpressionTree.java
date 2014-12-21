@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 public class ExpressionTree {
 
 	private Node root;
@@ -16,11 +18,11 @@ public class ExpressionTree {
 	}
 
 	public ExpressionTree getLeft(){
-		return new ExpressionTree(root.left);
+		return new ExpressionTree(root.getLeft());
 	}
 
 	public ExpressionTree getRight(){
-		return new ExpressionTree(root.right);
+		return new ExpressionTree(root.getRight());
 	}
 
 	public void accept(Visitor visitor){
