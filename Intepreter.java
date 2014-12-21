@@ -108,4 +108,37 @@ public class Intepreter {
 		return insertSymbolByPrecedence(number,parseTree);
 	}
 
+	private Stack<Symbol> insertSymbolByPrecedence(Symbol symbol, Stack<Symbol> parseTree){
+		 
+        if(!parseTree.empty()) {
+            Symbol parent = parseTree.peek();
+            Symbol child = parent.right;
+            if(child != null)                 
+                for(;child != null && child.precedence () < symbol.precedence (); child = child.right)
+                	parent = child;
+            		if(parent.precedence () < symbol.precedence()) {                 
+                		if(symbol.left == null){
+                    		symbol.left = child;
+                    	}
+                		parent.right = symbol;
+            		} else {
+                 
+                	UnaryOperator up = new Negate();
+					if(symbol.getClass() == up.getClass()) {
+                    	for(;child != null && child.precedence() == symbol.precedence();child = child.right)
+                        	parent = child;
+                    	parent.right = symbol;
+                	} else {                     
+                    	symbol.left = parent;
+                    	parseTree.pop();
+                    	parseTree.push(symbol);
+                    	parent = child;
+                	}
+            	}
+        	} else{
+            	parseTree.push(symbol);
+        	}	
+        	return parseTree;
+		}
+
 }
