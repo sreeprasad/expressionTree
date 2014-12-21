@@ -1,4 +1,4 @@
-public abstract class UnaryOperator{
+public abstract class UnaryOperator extends Symbol{
 
 	public UnaryOperator(Symbol right, int precedence){
 		super(null,right, precedence);
