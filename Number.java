@@ -22,5 +22,8 @@ public class Number extends Symbol{
 	}
 
 
+	public int addPrecedence(int precedence){
+		return precedence=numberPrecedence+accumalatedPrecedence;
+	}
 
 }
