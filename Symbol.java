@@ -1,7 +1,7 @@
 public abstract class Symbol{
 
-	protected Symbol left, right;
-	protected int precedence=0;
+	public Symbol left, right;
+	public int precedence=0;
 
 	public Symbol(Symbol left,Symbol right, int precedence){
 		this.left=left;
