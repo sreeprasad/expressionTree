@@ -21,7 +21,7 @@ public class Intepreter {
 
 	//to create expression tree instances
 	private ExpressionTreeFactory	expressionTreeFactory = new ExpressionTreeFactory();
-	
+
 	public ExpressionTree interpret(String exp){
 		Stack<Symbol> parseTree = buildParseTree(exp);
 		if(parseTree!=null && !parseTree.isEmpty()){
@@ -89,6 +89,23 @@ public class Intepreter {
 				}
 				return parseTree;
 			}
+	}
+
+	private Stack<Symbol> insertSymbolDigit(String exp, Stack<Symbol> parseTree, int i, boolean isVariable){
+		int end=1;
+		for(;i+end<exp.length() && Character.isDigit(exp.charAt(i+end)); end++){
+			continue;
+		}
+		Number number=null;
+		if(isVariable){
+			number=symbolTable.lookUp(exp.substring(i,i+end);
+		}else{
+			number=new Number(exp.substring(i,i+end));
+		}
+		i+=end;
+		multipleDigits=i;
+		lastValidInput=number;
+		return insertSymbolByPrecedence(number,parseTree);
 	}
 
 }
