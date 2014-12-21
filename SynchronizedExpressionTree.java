@@ -46,12 +46,16 @@ public class SynchronizedExpressionTree extends ExpressionTree {
 		}
 	}
 
-	public int item(){
+	public int item() throws Exception{
 		int item;
 		synchronized(this){
 			item=super.item();
 		}
 		return item;
+	}
+
+	public Node getRoot(){
+		return super.getRoot();
 	}
 
 }
