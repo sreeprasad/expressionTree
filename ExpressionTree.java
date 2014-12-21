@@ -29,8 +29,11 @@ public class ExpressionTree {
 		root.accept(visitor);
 	}
 
-	public int item(){
+	public int item() throws Exception{
 		return root.item();
 	}
 
+	public Node getRoot(){
+		return root;
+	}
 }
